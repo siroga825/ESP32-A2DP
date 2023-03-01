@@ -18,7 +18,7 @@ class BluetoothA2DPSink32 : public BluetoothA2DPSink {
             static constexpr int blk_size = 128;
             static uint32_t data32[blk_size/2];
             uint32_t rest_len = len;
-            int32_t volumeFactor = 0x1000;
+            int32_t volumeFactor = 0x10000;
             
             // adjust the volume
             volume_control()->update_audio_data((Frame*)data, len/4);
