@@ -34,7 +34,13 @@ bool BluetoothA2DPCommon::reconnect() {
     if (has_last_connection()) {
         is_autoreconnect_allowed = true;
         reconnect_status = IsReconnecting;
-        reconnect_timout = millis() + default_reconnect_timout;
+        unsigned long millis_now = millis();
+        if (0xFFFFFFFF - millis_now > default_reconnect_timout) {
+            reconnect_timout = millis_now + default_reconnect_timout;
+        }
+        else {
+            reconnect_timout = default_reconnect_timout - (0xFFFFFFFF - millis_now);
+        }
         return connect_to(last_connection);
     }
 
